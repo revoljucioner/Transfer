@@ -9,10 +9,10 @@ public class WaveGeneration : MonoBehaviour
 
     void Start()
     {
-        Spawn(1);
+        Spawn(new Vector3(0.7f, 0.7f));
     }
 
-    public void Spawn(float scale)
+    public void Spawn(Vector2 newScale)
     {
         var transmiter = satReflectors[Random.Range(0, satReflectors.Length)];
         var satelitesWithoutTransmiter = satReflectors.Except(new[] { transmiter }).ToArray();
@@ -26,10 +26,10 @@ public class WaveGeneration : MonoBehaviour
         waveTriggerScript.transmiter = transmiter;
         waveTriggerScript.receiver = receiver;
 
-        _wave.transform.localScale = scale * _wave.transform.localScale;
+        _wave.transform.localScale = newScale;
 
         Vector2 S = _wave.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        //var S = _wave.GetComponent<BoxCollider2D>().size * newScale;
         _wave.GetComponent<BoxCollider2D>().size = S;
-
     }
 }

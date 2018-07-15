@@ -53,38 +53,43 @@ public class WaveTriggersScript : MonoBehaviour
             ScoreScript.AddScorePoint();
             Destroy(gameObject);
             var nextWaveWidht = GetNextWaveWidht(satReflectorObject);
-            var nextWaveScale = GetSizeSlanted(gameObject) / nextWaveWidht;
-            WaveGenerationScript.Spawn((float)nextWaveScale);
+            var currentWaveWidht = GetSizeSlanted(gameObject);
+        
+            var diffScaleBetweenCurrAndNextWave =  nextWaveWidht/ currentWaveWidht>=1 ?1: nextWaveWidht / currentWaveWidht;
+            var nextWaveScale = gameObject.transform.localScale * (float)diffScaleBetweenCurrAndNextWave;
+            //var nextWaveScaleVector = new Vector2((float)diffScaleBetweenCurrAndNextWave, (float)diffScaleBetweenCurrAndNextWave);
+            WaveGenerationScript.Spawn(nextWaveScale);
         }
     }
 
-    private float GetNextWaveWidht(GameObject satReflectorObject)
+    private double GetNextWaveWidht(GameObject satReflectorObject)
     {
-        var bordersSatelite = GetLeftRightObjectPositions(satReflectorObject);
-        var bordersWave = GetLeftRightObjectPositions(gameObject);
+        var sateliteColiderPosition = GetLeftRightObjectPositions(satReflectorObject);
+        var waveColiderPosition = GetLeftRightObjectPositions(gameObject);
 
-        var leftValue = Math.Max(bordersWave.Item1, bordersSatelite.Item1);
-        var rightValue = Math.Min(bordersWave.Item2, bordersSatelite.Item2);
+        var leftProjectionX = Math.Max(waveColiderPosition.Left, sateliteColiderPosition.Left);
+        var rightProjectionX = Math.Min(waveColiderPosition.Right, sateliteColiderPosition.Right);
 
-        var nextWaveProjectionX = rightValue - leftValue;
+        var nextWaveProjectionX = rightProjectionX - leftProjectionX;
         var waveAngle = GetObjectAngleRad(gameObject);
         var nextWaveWidht = nextWaveProjectionX / Math.Cos(waveAngle);
-        return (float)nextWaveWidht;
+        return nextWaveWidht;
     }
 
-    private Tuple<double, double> GetLeftRightObjectPositions(GameObject _gameObject)
+    private ColiderPosition GetLeftRightObjectPositions(GameObject _gameObject)
     {
         var sizeSlanted = GetSizeSlanted(_gameObject);
         var centerX = _gameObject.transform.position.x;
         var leftBorder = centerX - sizeSlanted / 2;
         var rightBorder = centerX + sizeSlanted / 2;
-        return Tuple.Create(leftBorder, rightBorder);
+        return new ColiderPosition(leftBorder, rightBorder, centerX, sizeSlanted) ;
     }
 
     private double GetSizeSlanted(GameObject _gameObject)
     {
         var colider = _gameObject.GetComponent<BoxCollider2D>();
-        var size = colider.size.x;
+        //var size = colider.size.x;
+        var size = colider.size.x * _gameObject.transform.localScale.x;
         var angleRad = GetObjectAngleRad(_gameObject);
         var sizeSlanted = Math.Cos(angleRad) * size;
         return sizeSlanted;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class gridOverlay : MonoBehaviour
+public class GridOverlay : MonoBehaviour
 {
 
     public GameObject plane;
@@ -58,13 +58,7 @@ public class gridOverlay : MonoBehaviour
 
         if (!lineMaterial)
         {
-            lineMaterial = new Material("Shader \"Lines/Colored Blended\" {" +
-                "SubShader { Pass { " +
-                "    Blend SrcAlpha OneMinusSrcAlpha " +
-                "    ZWrite Off Cull Off Fog { Mode Off } " +
-                "    BindChannels {" +
-                "      Bind \"vertex\", vertex Bind \"color\", color }" +
-                "} } }");
+            lineMaterial = new Material(Shader.Find("Specular"));
             lineMaterial.hideFlags = HideFlags.HideAndDontSave;
             lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
         }
