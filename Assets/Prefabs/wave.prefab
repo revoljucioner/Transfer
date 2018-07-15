@@ -18,32 +18,32 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4091194523203124}
+  - component: {fileID: 4679255011985024}
   - component: {fileID: 212930412577311116}
   - component: {fileID: 114603607053256782}
   - component: {fileID: 114041477959056854}
-  - component: {fileID: 61812252867806144}
+  - component: {fileID: 61431909999282618}
   m_Layer: 0
   m_Name: wave
-  m_TagString: Untagged
+  m_TagString: wave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4091194523203124
+--- !u!4 &4679255011985024
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609372556943506}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0009865025, w: -0.9999996}
-  m_LocalPosition: {x: -1.7087151, y: 3.6536286, z: 3.6371021}
-  m_LocalScale: {x: 0.21070641, y: 0.21070641, z: 0.21070641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.9109125, y: 2.2742734, z: 3.6371021}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.113000005}
---- !u!61 &61812252867806144
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61431909999282618
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -66,7 +66,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.21070641, y: 0.21070641}
+  m_Size: {x: 2.23, y: 0.41}
   m_EdgeRadius: 0
 --- !u!114 &114041477959056854
 MonoBehaviour:

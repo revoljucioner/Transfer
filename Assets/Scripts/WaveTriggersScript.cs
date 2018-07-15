@@ -53,49 +53,49 @@ public class WaveTriggersScript : MonoBehaviour
             ScoreScript.AddScorePoint();
             Destroy(gameObject);
             var nextWaveWidht = GetNextWaveWidht(satReflectorObject);
-            //
-            Debug.Log($"nextWaveWidht = {nextWaveWidht}");
-            //
-            WaveGenerationScript.Spawn(nextWaveWidht);     
+            var nextWaveScale = GetSizeSlanted(gameObject) / nextWaveWidht;
+            WaveGenerationScript.Spawn((float)nextWaveScale);
         }
     }
 
     private float GetNextWaveWidht(GameObject satReflectorObject)
     {
-        var satColider = satReflectorObject.GetComponent<BoxCollider2D>();
-        var waveColider = GetComponent<BoxCollider2D>();
+        var bordersSatelite = GetLeftRightObjectPositions(satReflectorObject);
+        var bordersWave = GetLeftRightObjectPositions(gameObject);
 
-        var widthWave = waveColider.size.x*transform.localScale.x;
-        var centerXWave = transform.position.x;
-        var leftBorderWave = centerXWave - widthWave / 2;
-        var rightBorderWave = centerXWave + widthWave / 2;
+        var leftValue = Math.Max(bordersWave.Item1, bordersSatelite.Item1);
+        var rightValue = Math.Min(bordersWave.Item2, bordersSatelite.Item2);
 
-        var widthSat = satColider.size.x * satReflectorObject.transform.localScale.x;
-        var centerXSat = satReflectorObject.transform.position.x;
-        var leftBorderSat = centerXSat - widthSat / 2;
-        var rightBorderSat = centerXSat + widthSat / 2;
-        //
-        Debug.Log($"-------");
-        Debug.Log($"widthWave :{widthWave}");
-        Debug.Log($"centerXWave :{centerXWave}");
-        Debug.Log($"leftBorderWave :{leftBorderWave}");
-        Debug.Log($"rightBorderWave :{rightBorderWave}");
-        Debug.Log($"-------");
-        Debug.Log($"widthSat :{widthSat}");
-        Debug.Log($"centerXSat :{centerXSat}");
-        Debug.Log($"leftBorderSat :{leftBorderSat}");
-        Debug.Log($"rightBorderSat :{rightBorderSat}");
-        Debug.Log($"-------");
-        //
-        var leftValue = Math.Max(leftBorderWave,leftBorderSat);
-        var rightValue = Math.Min(rightBorderWave, rightBorderSat);
-
-        return rightValue - leftValue;
+        var nextWaveProjectionX = rightValue - leftValue;
+        var waveAngle = GetObjectAngleRad(gameObject);
+        var nextWaveWidht = nextWaveProjectionX / Math.Cos(waveAngle);
+        return (float)nextWaveWidht;
     }
 
+    private Tuple<double, double> GetLeftRightObjectPositions(GameObject _gameObject)
+    {
+        var sizeSlanted = GetSizeSlanted(_gameObject);
+        var centerX = _gameObject.transform.position.x;
+        var leftBorder = centerX - sizeSlanted / 2;
+        var rightBorder = centerX + sizeSlanted / 2;
+        return Tuple.Create(leftBorder, rightBorder);
+    }
 
-    //private float GetNextWaveScale(float nextWaveWidht)
-    //{
+    private double GetSizeSlanted(GameObject _gameObject)
+    {
+        var colider = _gameObject.GetComponent<BoxCollider2D>();
+        var size = colider.size.x;
+        var angleRad = GetObjectAngleRad(_gameObject);
+        var sizeSlanted = Math.Cos(angleRad) * size;
+        return sizeSlanted;
+    }
 
-    //}
+    private double GetObjectAngleRad(GameObject _gameObject)
+    {
+
+        var angleRad = Helper.DegreesToRad(Helper.Degrees360ToPlusMinus180(_gameObject.transform.eulerAngles.z));
+        if (_gameObject.CompareTag("wave"))
+            angleRad += Math.PI;
+        return angleRad;
+    }
 }

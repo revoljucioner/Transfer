@@ -29,9 +29,14 @@ public static class Helper
         return baseReflectorPosition;
     }
 
-    public static float DegreesToRad(float degrees)
+    public static double DegreesToRad(double degrees)
     {
         var angle = (float)(PI * degrees / 180.0);
         return angle;
+    }
+
+    public static double Degrees360ToPlusMinus180(double value)
+    {
+        return value > 180 ? value - 360 : value;
     }
 }

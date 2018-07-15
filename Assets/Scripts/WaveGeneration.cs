@@ -1,28 +1,16 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
-public class WaveGeneration : MonoBehaviour {
+public class WaveGeneration : MonoBehaviour
+{
 
     public GameObject wave;
     private GameObject[] satReflectors => GameObject.FindGameObjectsWithTag("satReflector");
 
-    void Start ()
+    void Start()
     {
-        //StartCoroutine(Spawn());	
         Spawn(1);
-	}
-	
-    //IEnumerator Spawn()
-    //{
-    //    while(true)
-    //    {
-    //        var satReflectorPosition = satRef.transform.position;
-
-    //        Instantiate(wave, new Vector2(satReflectorPosition.x, satReflectorPosition.y), Quaternion.identity);
-    //        yield return new WaitForSeconds(3);
-    //    }
-    //}
+    }
 
     public void Spawn(float scale)
     {
@@ -30,15 +18,18 @@ public class WaveGeneration : MonoBehaviour {
         var satelitesWithoutTransmiter = satReflectors.Except(new[] { transmiter }).ToArray();
         var receiver = satelitesWithoutTransmiter[Random.Range(0, satelitesWithoutTransmiter.Length)];
 
-        var waveTriggerScript = wave.GetComponent<WaveTriggersScript>();
+        var transmiterPosition = transmiter.transform.position;
+
+        var _wave = Instantiate(wave, new Vector2(transmiterPosition.x, transmiterPosition.y), Quaternion.identity);
+
+        var waveTriggerScript = _wave.GetComponent<WaveTriggersScript>();
         waveTriggerScript.transmiter = transmiter;
         waveTriggerScript.receiver = receiver;
 
-        var transmiterPosition = transmiter.transform.position;
-        //
-        wave.GetComponent<BoxCollider2D>().size = new Vector3(scale, scale, scale);
-        wave.transform.localScale = new Vector3(scale, scale, scale);
-        //
-        Instantiate(wave, new Vector2(transmiterPosition.x, transmiterPosition.y), Quaternion.identity);
+        _wave.transform.localScale = scale * _wave.transform.localScale;
+
+        Vector2 S = _wave.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        _wave.GetComponent<BoxCollider2D>().size = S;
+
     }
 }
