@@ -9,6 +9,7 @@ TagManager:
   - satReflector2
   - satReflector
   - wave
+  - cloud
   layers:
   - Default
   - TransparentFX

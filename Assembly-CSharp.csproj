@@ -58,7 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BackgroundMoveScript.cs" />
     <Compile Include="Assets\Scripts\BaseReflectorControlScript.cs" />
+    <Compile Include="Assets\Scripts\CloudGenerationScript.cs" />
     <Compile Include="Assets\Scripts\ColiderPosition.cs" />
     <Compile Include="Assets\Scripts\GridOverlay.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
