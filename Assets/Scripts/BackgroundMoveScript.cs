@@ -2,19 +2,44 @@
 
 public class BackgroundMoveScript : MonoBehaviour
 {
-    private float Speed => Variables.BackgroundMoveSpeed();
-    private Vector3 PivotPoint = Variables.EarthCenter;
+    private float Speed = Variables.BackgroundMoveSpeed();
+    public float Phase { get; set; }
+    private float RadiusOfRotate = Variables.CloudsOrbit() - Variables.EarthCenter.y;
 
-    public bool Gone => (transform.position.x < -1.5*Variables.CameraWidth());
+    public bool Gone => (Phase < -Variables.CloudPhaseDestroy);
+
+    private void Start()
+    {
+    }
 
     void Update()
     {
-        SetPosition();
+        ChangePhase();
+        SetPositionX();
+        SetPositionY();
+        SetRotate();
     }
 
-    private void SetPosition()
+    private void SetPositionX()
     {
-        float deltaAngle = Speed ;
-        transform.RotateAround(PivotPoint, Vector3.forward, deltaAngle);
+        var x = RadiusOfRotate * Mathf.Cos((90- Phase)* Mathf.Deg2Rad);
+        transform.position = new Vector3(x, transform.position.y, transform.position.z);
+    }
+
+    private void SetPositionY()
+    {
+        var y = RadiusOfRotate * Mathf.Sin((90 - Phase) * Mathf.Deg2Rad) + Variables.EarthCenter.y;
+        transform.position = new Vector3(transform.position.x, y, transform.position.z);
+
+    }
+
+    private void ChangePhase()
+    {
+        Phase = Phase - Speed;
+    }
+
+    private void SetRotate()
+    {
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, Variables.EarthCenter - transform.position);
     }
 }

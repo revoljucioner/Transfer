@@ -8,9 +8,13 @@ public static class Variables
 
     private const float _waveMoveSpeed = 0.02f;
     private const float _sateliteMoveSpeed = 1;
-    private const float _backgroundMoveSpeed = 0.05f;
+    private const float _backgroundMoveSpeed = 0.2f;
+    private const float _cloudsOrbit = 4f;
 
     public static Vector3 EarthCenter = new Vector3(0, -5f, 0);
+    public static float CloudOrbitHeight => 10f;
+    public static float PositionXToDestroy => 1.5f * CameraDimensions().x;
+    public static float CloudPhaseDestroy => 25;
     //
     //Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
     //
@@ -35,9 +39,15 @@ public static class Variables
         return backgroundMoveSpeed;
     }
 
-    public static float CameraWidth()
+    public static float CloudsOrbit()
+    {
+        var cloudsOrbit = _cloudsOrbit;
+        return cloudsOrbit;
+    }
+
+    private static Vector3 CameraDimensions()
     {
         Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
-        return stageDimensions.x;
+        return stageDimensions;
     }
 }

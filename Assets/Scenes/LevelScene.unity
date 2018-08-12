@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PointToRotate: {x: 0, y: 0}
-  maxHeight: 5.5
+  orbit: 5
   phaseChange: 3.14
 --- !u!50 &524524892
 Rigidbody2D:
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PointToRotate: {x: 0, y: 0}
-  maxHeight: 7
+  orbit: 7
   phaseChange: 0
 --- !u!61 &762632367
 BoxCollider2D:
@@ -892,6 +892,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0cea16100f783b4d8bfd477ea33c519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 1953039205004512, guid: 32f806b73eee8a346a4052accbcb245e, type: 2}
+  sprites:
+  - {fileID: 21300000, guid: 90aa4c83c58885a4db2eab3131db5fb7, type: 3}
+  - {fileID: 21300000, guid: e91ff8f1586ab934d9a16b2a77da2667, type: 3}
 --- !u!1001 &2007024264
 Prefab:
   m_ObjectHideFlags: 0
@@ -901,11 +905,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4590173497726414, guid: 32f806b73eee8a346a4052accbcb245e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.43
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4590173497726414, guid: 32f806b73eee8a346a4052accbcb245e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.15
+      value: 5.01
       objectReference: {fileID: 0}
     - target: {fileID: 4590173497726414, guid: 32f806b73eee8a346a4052accbcb245e, type: 2}
       propertyPath: m_LocalPosition.z

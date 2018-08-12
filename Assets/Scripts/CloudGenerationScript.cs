@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class CloudGenerationScript : MonoBehaviour
 {
-
     private GameObject[] ExistingClouds => GameObject.FindGameObjectsWithTag("cloud");
+    public GameObject cloud;
+    public Sprite[] sprites;
 
     void Start()
     {
@@ -16,18 +18,29 @@ public class CloudGenerationScript : MonoBehaviour
         var goneBehindScreenClouds = ExistingClouds.Where(i => i.GetComponent<BackgroundMoveScript>().Gone);
 
         foreach (var goneCloud in goneBehindScreenClouds)
-        {           
-            SpawnCloud(1.5f * Variables.CameraWidth());
-            //
-            goneCloud.transform.position = new Vector3(5,5,0);
-
-            //
-            //Destroy(goneCloud);
+        {
+            //SpawnCloud();
+            MoveCloud(goneCloud);
+            ChangeSprite(goneCloud);
         }
     }
 
-    private void SpawnCloud(float position)
+    //TODO: Instantiate random cloud
+    //private void SpawnCloud()
+    //{
+    //    ChangeSprite(cloud);
+    //    Instantiate(cloud, GetCloudPositionByX(positionToDestroy), Quaternion.identity);
+    //}
+
+    private void MoveCloud(GameObject cloud)
     {
-        //Instantiate(randomCloud, new Vector2(transmiterPosition.x, transmiterPosition.y), Quaternion.identity);
+        cloud.GetComponent<BackgroundMoveScript>().Phase = Variables.CloudPhaseDestroy;
+    }
+
+    private void ChangeSprite(GameObject cloud)
+    {
+        var sprite = sprites[UnityEngine.Random.Range(0, sprites.Length)];
+        cloud.GetComponent<SpriteRenderer>().sprite = sprite;
+        cloud.transform.localScale = new Vector3(-0.1f, -0.1f, -0.1f);
     }
 }
