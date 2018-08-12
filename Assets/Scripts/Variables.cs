@@ -8,8 +8,8 @@ public static class Variables
 
     private const float _waveMoveSpeed = 0.02f;
     private const float _sateliteMoveSpeed = 1;
-    private const float _backgrounDistantMoveSpeed = 0.1f;
-    private const float _backgroundNearMoveSpeed = 0.15f;
+    private const float _backgrounDistantMoveSpeed = 0.05f;
+    private const float _backgroundNearMoveSpeed = 0.07f;
     private const float _cloudsOrbit = 4f;
     private const float _distantCloudsSize = -0.06f;
     private const float _nireCloudsSize = -0.1f;

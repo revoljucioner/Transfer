@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4590173497726414}
   - component: {fileID: 212540123415031302}
   - component: {fileID: 114512307875979632}
+  - component: {fileID: 114913552097001646}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: cloud
@@ -52,7 +53,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81665bb3157e675418a78ffb47bca6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.2
+  Speed: 0
+--- !u!114 &114913552097001646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953039205004512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1064f3765d3cfaa439b7f3f647824920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 90aa4c83c58885a4db2eab3131db5fb7, type: 3}
+  - {fileID: 21300000, guid: e91ff8f1586ab934d9a16b2a77da2667, type: 3}
 --- !u!212 &212540123415031302
 SpriteRenderer:
   m_ObjectHideFlags: 1

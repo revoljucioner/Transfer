@@ -15,7 +15,15 @@ public class BackgroundMoveScript : MonoBehaviour
 
     void Update()
     {
-        ChangePhase();
+        if (Gone)
+        {
+            Phase = Variables.CloudPhaseDestroy;
+            GetComponent<CloudSpriteScript>().ChangeSprite();
+        }
+        else
+        {
+            ChangePhase();
+        }
         SetPositionX();
         SetPositionY();
         SetRotate();
