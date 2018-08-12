@@ -47,9 +47,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1597267443
+    locked: 0
   - name: Player
     uniqueID: 885759925
     locked: 0
-  - name: Clouds
+  - name: NearClouds
     uniqueID: 837372707
     locked: 0

@@ -2,7 +2,8 @@
 
 public class BackgroundMoveScript : MonoBehaviour
 {
-    private float Speed = Variables.BackgroundMoveSpeed();
+    //private float Speed = Variables.BackgroundMoveSpeed();
+    public float Speed;
     public float Phase { get; set; }
     private float RadiusOfRotate = Variables.CloudsOrbit() - Variables.EarthCenter.y;
 

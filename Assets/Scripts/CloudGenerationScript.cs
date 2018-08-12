@@ -7,10 +7,15 @@ public class CloudGenerationScript : MonoBehaviour
     private GameObject[] ExistingClouds => GameObject.FindGameObjectsWithTag("cloud");
     public GameObject cloud;
     public Sprite[] sprites;
+    private float SpeedDistantClouds = Variables.BackgroundDistantMoveSpeed();
+    private float SpeedNearClouds = Variables.BackgroundNearMoveSpeed();
+    private float SizeDistantClouds = Variables.DistantCloudsSize();
+    private float SizeNearClouds = Variables.NearCloudsSize();
 
     void Start()
     {
-        //Spawn(new Vector3(0.7f, 0.7f));
+        SpawnClouds("NearClouds", 4, SpeedNearClouds, SizeNearClouds);
+        SpawnClouds("Background", 5, SpeedDistantClouds, SizeDistantClouds);
     }
 
     public void Update()
@@ -20,27 +25,44 @@ public class CloudGenerationScript : MonoBehaviour
         foreach (var goneCloud in goneBehindScreenClouds)
         {
             //SpawnCloud();
-            MoveCloud(goneCloud);
+            MoveCloud(goneCloud, Variables.CloudPhaseDestroy);
             ChangeSprite(goneCloud);
         }
     }
 
-    //TODO: Instantiate random cloud
-    //private void SpawnCloud()
-    //{
-    //    ChangeSprite(cloud);
-    //    Instantiate(cloud, GetCloudPositionByX(positionToDestroy), Quaternion.identity);
-    //}
-
-    private void MoveCloud(GameObject cloud)
+    private void SpawnCloud(string sortingLayerName, float phase, float speed, float size)
     {
-        cloud.GetComponent<BackgroundMoveScript>().Phase = Variables.CloudPhaseDestroy;
+        var newCloud = Instantiate(cloud);
+        var backgroundMoveScriptComponent = newCloud.GetComponent<BackgroundMoveScript>();
+        backgroundMoveScriptComponent.Phase = phase;
+        backgroundMoveScriptComponent.Speed = speed;
+        newCloud.GetComponent<SpriteRenderer>().sortingLayerName = sortingLayerName;
+        ChangeSprite(newCloud, size);
+    }
+
+    private void SpawnClouds(string sortingLayerName, int count, float speed, float size)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            var phase = -Variables.CloudPhaseDestroy + 2*i* Variables.CloudPhaseDestroy/(count);
+            SpawnCloud(sortingLayerName, phase, speed, size);
+        }
+    }
+
+    private void MoveCloud(GameObject cloud, float phase)
+    {
+        cloud.GetComponent<BackgroundMoveScript>().Phase = phase;
     }
 
     private void ChangeSprite(GameObject cloud)
     {
         var sprite = sprites[UnityEngine.Random.Range(0, sprites.Length)];
         cloud.GetComponent<SpriteRenderer>().sprite = sprite;
-        cloud.transform.localScale = new Vector3(-0.1f, -0.1f, -0.1f);
+    }
+
+    private void ChangeSprite(GameObject cloud, float size)
+    {
+        ChangeSprite(cloud);
+        cloud.transform.localScale = new Vector3(size, size, size);
     }
 }

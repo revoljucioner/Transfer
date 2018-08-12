@@ -8,8 +8,11 @@ public static class Variables
 
     private const float _waveMoveSpeed = 0.02f;
     private const float _sateliteMoveSpeed = 1;
-    private const float _backgroundMoveSpeed = 0.2f;
+    private const float _backgrounDistantMoveSpeed = 0.1f;
+    private const float _backgroundNearMoveSpeed = 0.15f;
     private const float _cloudsOrbit = 4f;
+    private const float _distantCloudsSize = -0.06f;
+    private const float _nireCloudsSize = -0.1f;
 
     public static Vector3 EarthCenter = new Vector3(0, -5f, 0);
     public static float CloudOrbitHeight => 10f;
@@ -33,10 +36,28 @@ public static class Variables
         return sateliteMoveSpeed;
     }
 
-    public static float BackgroundMoveSpeed()
+    public static float BackgroundDistantMoveSpeed()
     {
-        var backgroundMoveSpeed = _backgroundMoveSpeed;
+        var backgroundMoveSpeed = _backgrounDistantMoveSpeed;
         return backgroundMoveSpeed;
+    }
+
+    public static float BackgroundNearMoveSpeed()
+    {
+        var backgroundMoveSpeed = _backgroundNearMoveSpeed;
+        return backgroundMoveSpeed;
+    }
+
+    public static float DistantCloudsSize()
+    {
+        var size = _distantCloudsSize;
+        return size;
+    }
+
+    public static float NearCloudsSize()
+    {
+        var size = _nireCloudsSize;
+        return size;
     }
 
     public static float CloudsOrbit()
