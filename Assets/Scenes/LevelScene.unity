@@ -750,6 +750,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1665489577
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 5.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836297294764312, guid: b966d65837755c24b870266b27269971, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b966d65837755c24b870266b27269971, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1667226623
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,9 +935,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud: {fileID: 1953039205004512, guid: 32f806b73eee8a346a4052accbcb245e, type: 2}
-  sprites:
-  - {fileID: 21300000, guid: 90aa4c83c58885a4db2eab3131db5fb7, type: 3}
-  - {fileID: 21300000, guid: e91ff8f1586ab934d9a16b2a77da2667, type: 3}
 --- !u!1 &2057664190
 GameObject:
   m_ObjectHideFlags: 0

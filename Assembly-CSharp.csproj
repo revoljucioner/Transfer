@@ -60,14 +60,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BackgroundMoveScript.cs" />
     <Compile Include="Assets\Scripts\BaseReflectorControlScript.cs" />
+    <Compile Include="Assets\Scripts\CenterOfMassScript.cs" />
     <Compile Include="Assets\Scripts\CloudGenerationScript.cs" />
     <Compile Include="Assets\Scripts\CloudSpriteScript.cs" />
     <Compile Include="Assets\Scripts\ColiderPosition.cs" />
     <Compile Include="Assets\Scripts\GridOverlay.cs" />
     <Compile Include="Assets\Scripts\Helper.cs" />
     <Compile Include="Assets\Scripts\MoveObject.cs" />
+    <Compile Include="Assets\Scripts\SateliteMoveScript.cs" />
     <Compile Include="Assets\Scripts\SateliteReflectorMoveScript.cs" />
+    <Compile Include="Assets\Scripts\SateliteReflectorRotateScript.cs" />
     <Compile Include="Assets\Scripts\ScoreScript.cs" />
+    <Compile Include="Assets\Scripts\TestControlMoveScript.cs" />
     <Compile Include="Assets\Scripts\Variables.cs" />
     <Compile Include="Assets\Scripts\WaveGeneration.cs" />
     <Compile Include="Assets\Scripts\WaveMoveScript.cs" />
