@@ -18,6 +18,9 @@ public static class Variables
     public static float CloudOrbitHeight => 10f;
     public static float PositionXToDestroy => 1.5f * CameraDimensions().x;
     public static float CloudPhaseDestroy => 25;
+    public static float Tarc = 10;
+    public static float Trel = 5;
+
     //
     //Vector3 stageDimensions = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
     //

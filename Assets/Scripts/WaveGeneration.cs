@@ -5,7 +5,7 @@ public class WaveGeneration : MonoBehaviour
 {
 
     public GameObject wave;
-    private GameObject[] satReflectors => GameObject.FindGameObjectsWithTag("satReflector");
+    private GameObject[] satReflectors => GameObject.FindGameObjectsWithTag("satBody").Select(i=>i.transform.GetChild(0).gameObject).ToArray();
 
     void Start()
     {

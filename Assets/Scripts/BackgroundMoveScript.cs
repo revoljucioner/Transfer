@@ -39,7 +39,6 @@ public class BackgroundMoveScript : MonoBehaviour
     {
         var y = RadiusOfRotate * Mathf.Sin((90 - Phase) * Mathf.Deg2Rad) + Variables.EarthCenter.y;
         transform.position = new Vector3(transform.position.x, y, transform.position.z);
-
     }
 
     private void ChangePhase()
