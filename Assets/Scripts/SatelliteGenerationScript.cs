@@ -5,7 +5,7 @@ public class SatelliteGenerationScript : MonoBehaviour
 {
     public GameObject Satellite;
 
-    void Start()
+    private void Awake()
     {
         Spawn(0, 7);
         Spawn(3.14f, 5);

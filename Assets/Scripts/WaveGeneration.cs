@@ -29,7 +29,6 @@ public class WaveGeneration : MonoBehaviour
         _wave.transform.localScale = newScale;
 
         Vector2 S = _wave.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        //var S = _wave.GetComponent<BoxCollider2D>().size * newScale;
         _wave.GetComponent<BoxCollider2D>().size = S;
     }
 }
