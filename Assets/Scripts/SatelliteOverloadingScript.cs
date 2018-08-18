@@ -16,12 +16,25 @@ public class SatelliteOverloadingScript : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void Update() 
     {
         Console.WriteLine(Variables.Time);
-        if (Variables.Time >= Variables.Tarc && currentOrbit == OrbitType.Arc)
+        if (Variables.Time >= Variables.Tarc && Variables.Time < Variables.Tarc + Variables.Trel && currentOrbit == OrbitType.Arc)
         {
             OverloadToCircle(3);
+            currentOrbit = OrbitType.None;
+        }
+        if (Variables.Time >= Variables.Tarc && Variables.Time < Variables.Tarc + Variables.Trel )
+        {
+            MoveToNextOrbitTypeStart();
+        }
+        if (Variables.Time >= Variables.Tarc + Variables.Trel && currentOrbit == OrbitType.None)
+        {
+            foreach (var sat in satellites)
+            {
+                sat.GetComponent<SateliteMoveCircleScript>().enabled = true;
+            }
+            currentOrbit = OrbitType.Ellipse;
         }
     }
 
@@ -31,9 +44,8 @@ public class SatelliteOverloadingScript : MonoBehaviour
         foreach (var sat in satellites)
         {
             sat.GetComponent<SateliteMoveArcScript>().enabled = false;
-            sat.GetComponent<SateliteMoveCircleScript>().enabled = true;
+            sat.GetComponent<SateliteMoveCircleScript>().enabled = false;
         }
-        currentOrbit = OrbitType.Ellipse;
     }
 
     private void ResetPhasesAndSpawnSatellites(uint newCount)
@@ -72,9 +84,13 @@ public class SatelliteOverloadingScript : MonoBehaviour
         None
     }
 
-    //protected override void SetPosition()
-    //{
-    //    var currentPosition = transform.position;
-    //    transform.position = Vector3.MoveTowards(currentPosition, PointToRotate, Speed);
-    //}
+    protected void MoveToNextOrbitTypeStart()
+    {
+        foreach (var sat in satellites)
+        {
+            var currentPosition = sat.transform.position;
+            var nextOrbitTypeStart = sat.GetComponent<SateliteMoveCircleScript>().CalculatePositionAsCircle();
+            sat.transform.position = Vector3.MoveTowards(currentPosition, nextOrbitTypeStart, Variables.SpeedOfRelocation);
+        }
+    }
 }
