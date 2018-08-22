@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using static System.Math;
 
 public class SateliteMoveArcScript : MonoBehaviour
@@ -8,7 +7,6 @@ public class SateliteMoveArcScript : MonoBehaviour
     private float maxWeight = 1.2f;
     public float orbit;
     public float phaseChange;
-    //public OrbitType orbitType;
     public bool mobile = true;
 
     void Update()
@@ -20,13 +18,7 @@ public class SateliteMoveArcScript : MonoBehaviour
     {
         if (mobile)
         {
-                transform.position = CalculatePositionAsArc();
-            //else if (orbitType == OrbitType.Ellipse)
-                //transform.position = CalculatePositionAsArc();
-            //else if (orbitType == OrbitType.Lemniscate)
-                //transform.position = CalculatePositionAsArc();
-            //else
-            //    throw new Exception("Wrong value of OrbitType enum");
+            transform.position = CalculatePositionAsArc();
         }
     }
 
@@ -39,12 +31,4 @@ public class SateliteMoveArcScript : MonoBehaviour
         var position = new Vector2(x, y);
         return position;
     }
-
-    //public enum OrbitType
-    //{
-    //    Arc,
-    //    Ellipse,
-    //    Lemniscate,
-    //    None
-    //}
 }

@@ -7,6 +7,7 @@ public class SatelliteOverloadingScript : MonoBehaviour
 {
     private GameObject[] satellites => GameObject.FindGameObjectsWithTag("satBody");
     private OrbitType currentOrbit = OrbitType.Arc;
+
     private void Start()
     {
         foreach (var sat in satellites)
@@ -18,17 +19,16 @@ public class SatelliteOverloadingScript : MonoBehaviour
 
     private void Update() 
     {
-        Console.WriteLine(Variables.Time);
-        if (Variables.Time >= Variables.Tarc && Variables.Time < Variables.Tarc + Variables.Trel && currentOrbit == OrbitType.Arc)
+        if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.RelToEllipse) && currentOrbit == OrbitType.Arc)
         {
             OverloadToCircle(3);
-            currentOrbit = OrbitType.None;
+            currentOrbit = OrbitType.RelToEllipse;
         }
-        if (Variables.Time >= Variables.Tarc && Variables.Time < Variables.Tarc + Variables.Trel )
+        if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.RelToEllipse)  && currentOrbit == OrbitType.RelToEllipse)
         {
             MoveToNextOrbitTypeStart();
         }
-        if (Variables.Time >= Variables.Tarc + Variables.Trel && currentOrbit == OrbitType.None)
+        if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.Ellipse) && currentOrbit == OrbitType.RelToEllipse)
         {
             foreach (var sat in satellites)
             {
@@ -74,14 +74,6 @@ public class SatelliteOverloadingScript : MonoBehaviour
             phases.Add(i * 360 / count);
         }
         return phases.ToArray();
-    }
-
-    public enum OrbitType
-    {
-        Arc,
-        Ellipse,
-        Lemniscate,
-        None
     }
 
     protected void MoveToNextOrbitTypeStart()

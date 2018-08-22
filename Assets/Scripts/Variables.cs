@@ -7,7 +7,7 @@ public static class Variables
     private static ScoreScript ScoreScript => MainCamera.GetComponent<ScoreScript>();
 
     private const float _waveMoveSpeed = 0.02f;
-    private const float _sateliteMoveSpeed = 1;
+    private const float _sateliteArcStartMoveSpeed = 1;
     private const float _backgrounDistantMoveSpeed = 0.05f;
     private const float _backgroundNearMoveSpeed = 0.07f;
     private const float _cloudsOrbit = 4f;
@@ -36,7 +36,7 @@ public static class Variables
 
     public static float SateliteMoveSpeed()
     {
-        var sateliteMoveSpeed = _sateliteMoveSpeed + Time/50;
+        var sateliteMoveSpeed = _sateliteArcStartMoveSpeed + Time/50;
         return sateliteMoveSpeed;
     }
 
