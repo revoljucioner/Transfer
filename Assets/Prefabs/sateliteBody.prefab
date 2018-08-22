@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114869510321098232}
   - component: {fileID: 114109829183406624}
   - component: {fileID: 114550539777123594}
+  - component: {fileID: 114380350573411240}
   m_Layer: 0
   m_Name: sateliteBody
   m_TagString: satBody
@@ -166,6 +167,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CenterOfMass: {x: 0, y: -0.25, z: 0}
+--- !u!114 &114380350573411240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1793153870719544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3745e941f27efb942b1252e272aade5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextOrbitTypeStart: {x: 0, y: 0, z: 0}
 --- !u!114 &114550539777123594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,8 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f32d7a3417bf2e4590454bbe29cb2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RadiusOfRotate: 3
-  orbit: 0
   phaseChange: 0
   mobile: 1
 --- !u!114 &114869510321098232

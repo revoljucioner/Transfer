@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+using UnityEngine;
 using static System.Math;
 
-public class SateliteMoveArcScript : MonoBehaviour
+public class SateliteMoveArcScript : MonoBehaviour, IMove
 {
     private float Speed => Variables.SateliteMoveSpeed();
     private float maxWeight = 1.2f;
@@ -18,11 +19,11 @@ public class SateliteMoveArcScript : MonoBehaviour
     {
         if (mobile)
         {
-            transform.position = CalculatePositionAsArc();
+            transform.position = CalculatePositionAsFigure();
         }
     }
 
-    private Vector2 CalculatePositionAsArc()
+    public Vector2 CalculatePositionAsFigure()
     {
         var x = (float)(maxWeight * Sin(Speed * Variables.Time + phaseChange));
         var y = (float)Sqrt(Pow(orbit, 2) - Pow(x, 2));

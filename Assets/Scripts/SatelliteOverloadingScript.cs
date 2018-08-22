@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class SatelliteOverloadingScript : MonoBehaviour
     {
         foreach (var sat in satellites)
         {
+            sat.GetComponent<SateliteMoveTowardScript>().enabled = false;
+
             sat.GetComponent<SateliteMoveArcScript>().enabled = true;
             sat.GetComponent<SateliteMoveCircleScript>().enabled = false;
         }
@@ -22,17 +25,15 @@ public class SatelliteOverloadingScript : MonoBehaviour
         if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.RelToEllipse) && currentOrbit == OrbitType.Arc)
         {
             OverloadToCircle(3);
+            MoveToNextOrbitTypeStart<SateliteMoveCircleScript>();
             currentOrbit = OrbitType.RelToEllipse;
         }
-        if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.RelToEllipse)  && currentOrbit == OrbitType.RelToEllipse)
-        {
-            MoveToNextOrbitTypeStart();
-        }
-        if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.Ellipse) && currentOrbit == OrbitType.RelToEllipse)
+        else if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.Ellipse) && currentOrbit == OrbitType.RelToEllipse)
         {
             foreach (var sat in satellites)
             {
                 sat.GetComponent<SateliteMoveCircleScript>().enabled = true;
+                sat.GetComponent<SateliteMoveTowardScript>().enabled = false;
             }
             currentOrbit = OrbitType.Ellipse;
         }
@@ -76,13 +77,16 @@ public class SatelliteOverloadingScript : MonoBehaviour
         return phases.ToArray();
     }
 
-    protected void MoveToNextOrbitTypeStart()
+    protected void MoveToNextOrbitTypeStart<T>() where T: MonoBehaviour, IMove
     {
         foreach (var sat in satellites)
         {
             var currentPosition = sat.transform.position;
-            var nextOrbitTypeStart = sat.GetComponent<SateliteMoveCircleScript>().CalculatePositionAsCircle();
-            sat.transform.position = Vector3.MoveTowards(currentPosition, nextOrbitTypeStart, Variables.SpeedOfRelocation);
+            var nextOrbitTypeStart = sat.GetComponent<T>().CalculatePositionAsFigure();
+            var sateliteMoveTowardScript = sat.GetComponent<SateliteMoveTowardScript>();
+
+            sateliteMoveTowardScript.nextOrbitTypeStart = nextOrbitTypeStart;
+            sateliteMoveTowardScript.enabled = true;
         }
     }
 }

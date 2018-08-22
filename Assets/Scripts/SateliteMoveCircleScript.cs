@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts;
+using UnityEngine;
 
-public class SateliteMoveCircleScript : MonoBehaviour
+public class SateliteMoveCircleScript : MonoBehaviour, IMove
 {
     private float Speed => Variables.SateliteMoveSpeed();
     private float RadiusOfRotate = 1.8f;
@@ -18,11 +19,11 @@ public class SateliteMoveCircleScript : MonoBehaviour
     {
         if (mobile)
         {
-            transform.position = CalculatePositionAsCircle();
+            transform.position = CalculatePositionAsFigure();
         }
     }
 
-    public Vector2 CalculatePositionAsCircle()
+    public Vector2 CalculatePositionAsFigure()
     {
         var x = SetPositionX();
         var y = SetPositionY();
