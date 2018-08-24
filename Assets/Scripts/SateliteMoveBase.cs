@@ -3,10 +3,13 @@ using UnityEngine;
 
 public abstract class SateliteMoveBase : MonoBehaviour, IMove
 {
-    private float Speed;
+    //protected float Speed;
     public float orbit;
     public float phaseChange;
+    protected float StartSpeed;
     public bool mobile = true;
+
+    public abstract float Speed { get; }
 
     void Update()
     {

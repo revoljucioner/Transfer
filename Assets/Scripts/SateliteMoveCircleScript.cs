@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using static System.Math;
 
 public class SateliteMoveCircleScript : SateliteMoveBase
 {
-    private float Speed => Variables.SateliteMoveSpeed();
+    public override float Speed => StartSpeed + 0.6f * (float)Atan(Variables.Time);
     private float RadiusOfRotate = 1.8f;
 
     private void Start()
     {
         orbit = 5.8f;
+        StartSpeed = Variables.SateliteStartCircleSpeed;
     }
     void Update()
     {
