@@ -19,7 +19,7 @@ public static class Variables
     public static float PositionXToDestroy => 1.5f * CameraDimensions().x;
     public static float CloudPhaseDestroy => 25;
     public static float Tarc = 5;
-    public static float Trel = 10;
+    public static float Trel = 5;
     public static float SpeedOfRelocation = 0.005f;
 
     //

@@ -1,29 +1,21 @@
-﻿using Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SateliteMoveCircleScript : MonoBehaviour, IMove
+public class SateliteMoveCircleScript : SateliteMoveBase
 {
     private float Speed => Variables.SateliteMoveSpeed();
     private float RadiusOfRotate = 1.8f;
-    private float orbit = 5.8f;
-    public float phaseChange;
-    public bool mobile = true;
 
+    private void Start()
+    {
+        orbit = 5.8f;
+    }
     void Update()
     {
         SetPosition();
         ChangePhase();
     }
 
-    protected void SetPosition()
-    {
-        if (mobile)
-        {
-            transform.position = CalculatePositionAsFigure();
-        }
-    }
-
-    public Vector2 CalculatePositionAsFigure()
+    public override Vector2 CalculatePositionAsFigure()
     {
         var x = SetPositionX();
         var y = SetPositionY();

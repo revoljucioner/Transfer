@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\MoveObject.cs" />
     <Compile Include="Assets\Scripts\OrbitType.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveArcScript.cs" />
+    <Compile Include="Assets\Scripts\SateliteMoveBase.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveCircleScript.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveTowardScript.cs" />
     <Compile Include="Assets\Scripts\SateliteReflectorRotateScript.cs" />
