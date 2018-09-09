@@ -18,7 +18,8 @@ public static class Variables
     public static float CloudOrbitHeight => 10f;
     public static float PositionXToDestroy => 1.5f * CameraDimensions().x;
     public static float CloudPhaseDestroy => 25;
-    public static float Tarc = 40;
+    //public static float Tarc = 40;
+    public static float Tarc = 4;
     public static float Trel = 5;
     public static float SpeedOfRelocation = 0.005f;
     public static float SateliteStartArcSpeed = 0.8f;

@@ -3,10 +3,11 @@ using static System.Math;
 
 public class SateliteMoveCircleScript : SateliteMoveBase
 {
-    public override float Speed => StartSpeed + 0.6f * (float)Atan(Variables.Time);
+    public override float Speed => 0.2f;
+    //public override float Speed => StartSpeed + 0.5f * (float)Atan(Variables.Time - Variables.Tarc);
     private float RadiusOfRotate = 1.8f;
 
-    private void Start()
+    private void Awake()
     {
         orbit = 5.8f;
         StartSpeed = Variables.SateliteStartCircleSpeed;
@@ -15,6 +16,8 @@ public class SateliteMoveCircleScript : SateliteMoveBase
     {
         SetPosition();
         ChangePhase();
+        //
+        Debug.Log($"Time: {Variables.Time} {System.Environment.NewLine} Speed: {Speed}");
     }
 
     public override Vector2 CalculatePositionAsFigure()
