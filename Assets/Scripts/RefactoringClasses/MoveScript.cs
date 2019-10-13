@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.RefactoringClasses
 {
-    public class MoveScript : MonoBehaviour, IObserver<IMoveStrategy>
+    public class MoveScript : MonoBehaviour/*, IObserver<IMoveStrategy>*/
     {
         private IMoveStrategy _moveStrategy;
 
@@ -14,14 +14,14 @@ namespace Assets.Scripts.RefactoringClasses
         //    a.Subscribe(this);
         //}
 
-        public void OnCompleted() => throw new NotImplementedException();
-        public void OnError(Exception error) => throw new NotImplementedException();
+        //public void OnCompleted() => throw new NotImplementedException();
+        //public void OnError(Exception error) => throw new NotImplementedException();
         //
 
-        public void OnNext(IMoveStrategy value)
-        {
-            SetStrategy(value);
-        }
+        //public void OnNext(IMoveStrategy value)
+        //{
+        //    SetStrategy(value);
+        //}
 
         public void SetStrategy(IMoveStrategy moveStrategy) => _moveStrategy = moveStrategy;
 

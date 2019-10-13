@@ -32,6 +32,12 @@ public class SatelliteGenerationScript : MonoBehaviour
     //    return _satellite;
     //}
 
+    public GameObject Spawn()
+    {
+        var _satellite = Instantiate(Satellite);
+        return _satellite;
+    }
+
     public GameObject Spawn(float phaseChange, float orbit)
     {
         var _satellite = Spawn(phaseChange);

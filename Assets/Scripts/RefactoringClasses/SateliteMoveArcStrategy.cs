@@ -18,6 +18,8 @@ namespace Assets.Scripts.RefactoringClasses
         public bool mobile = true;
         public float Speed => StartSpeed + 0.5f * (float)Atan(Variables.Time);
 
+        public float PhaseChange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void MoveObject(GameObject gameObject)
         {
             gameObject.transform.position = CalculatePositionAsFigure();

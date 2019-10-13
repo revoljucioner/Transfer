@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assets.Helpers;
+using Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,14 +8,16 @@ using UnityEngine;
 
 namespace Assets.Scripts.RefactoringClasses
 {
-    public class ChangeStrategyManager : MonoBehaviour, IObservable<IMoveStrategy>
+    public class ChangeStrategyManager : MonoBehaviour/*, IObservable<IMoveStrategy>*/
     {
-        private List<IObserver<IMoveStrategy>> _observers = new List<IObserver<IMoveStrategy>>();
+        //private List<IObserver<IMoveStrategy>> _observers = new List<IObserver<IMoveStrategy>>();
+        private SatelliteGenerationScript _satelliteGenerationScript = Camera.current.GetComponent<SatelliteGenerationScript>();
+        private List<GameObject> _sateliteList = new List<GameObject>();
 
         public List<MoveModel> MoveStrategyCollection = new List<MoveModel>
         {
-            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = Variables.Tarc, SatelitesCount = 2 },
-            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = Variables.Trel, SatelitesCount = 2 },
+            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = TimeSpan.FromSeconds(Variables.Tarc), SatelitesCount = 2 },
+            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
         };
 
         public void Start()
@@ -21,7 +25,7 @@ namespace Assets.Scripts.RefactoringClasses
             GameObject[] satellites = GameObject.FindGameObjectsWithTag("satBody");
             var g = satellites[0];
             var g2 = g.GetComponent<MoveScript>();
-            _observers.Add(g2);
+            //_observers.Add(g2);
 
             _ = ChangeStrategies();
         }
@@ -30,27 +34,71 @@ namespace Assets.Scripts.RefactoringClasses
         {
             foreach (var moveModel in MoveStrategyCollection)
             {
-                NotifyObservers(moveModel.SateliteMoveScriptType);
-                await Task.Delay(TimeSpan.FromSeconds(moveModel.Duration));
+                GenerateSatelites(moveModel.SatelitesCount);
+                var strategies = PrepareMoveStrategies(moveModel.SateliteMoveScriptType, moveModel.SatelitesCount);
+                //SetStrategyForSatelites((IMoveStrategy)Activator.CreateInstance(moveModel.SateliteMoveScriptType));
+                SetStrategies(strategies);
+                await Task.Delay(moveModel.Duration);
             }
         }
 
-        public IDisposable Subscribe(IObserver<IMoveStrategy> observer)
+        private void GenerateSatelites(int satCount)
         {
-            _observers.Add(observer);
+            if (satCount < _sateliteList.Count())
+                throw new ArgumentOutOfRangeException("Invalid count of sattelites");
 
-            // TODO:
-            // need to return IDisposable
-            return null;
+            Func<GameObject> func = _satelliteGenerationScript.Spawn;
+            var newSateliteCollection = func.Repeat(satCount - _sateliteList.Count());
+            _sateliteList.AddRange(newSateliteCollection);
         }
 
-        public void NotifyObservers(Type type)
+        //private void SetStrategyForSatelites(IMoveStrategy moveStrategy)
+        //{
+        //    _sateliteList.Select(i => i.GetComponent<MoveScript>()).ForEach(i => i.SetStrategy(moveStrategy));
+        //}
+
+        private void SetStrategies(IEnumerable<IMoveStrategy> strategies)
         {
-            foreach (IObserver<IMoveStrategy> obs in _observers)
+            for (var i = 0; i < _sateliteList.Count(); i++)
             {
-                var ms = (IMoveStrategy)Activator.CreateInstance(type);
-                obs.OnNext(ms);
+                var satelite = _sateliteList.ElementAt(i).GetComponent<MoveScript>();
+                var strategy = strategies.ElementAt(i);
+                satelite.SetStrategy(strategy);
             }
         }
+
+        private IEnumerable<IMoveStrategy> PrepareMoveStrategies(Type type,int satCount)
+        {
+            // TODO:
+            // need to be refactored
+            var strategies = Enumerable.Range(0, satCount).Select(i => (IMoveStrategy)Activator.CreateInstance(type));
+
+            var newPhases = PhaseGenerator.GetPhases((uint)_sateliteList.Count());
+
+            for (var i = 0; i < strategies.Count(); i++)
+            {
+                strategies.ElementAt(i).PhaseChange = newPhases.ElementAt(i);
+            }
+
+            return strategies;
+        }
+
+        //public IDisposable Subscribe(IObserver<IMoveStrategy> observer)
+        //{
+        //    _observers.Add(observer);
+
+        //    // TODO:
+        //    // need to return IDisposable
+        //    return null;
+        //}
+
+        //public void NotifyObservers(Type type)
+        //{
+        //    foreach (IObserver<IMoveStrategy> obs in _observers)
+        //    {
+        //        var ms = (IMoveStrategy)Activator.CreateInstance(type);
+        //        obs.OnNext(ms);
+        //    }
+        //}
     }
 }
