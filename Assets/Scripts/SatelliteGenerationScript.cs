@@ -14,7 +14,7 @@ public class SatelliteGenerationScript : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     //public GameObject Spawn(float phaseChange, OrbitType orbitType, float orbit)
@@ -32,14 +32,14 @@ public class SatelliteGenerationScript : MonoBehaviour
     //    return _satellite;
     //}
 
-    public GameObject Spawn(float phaseChange,float orbit)
+    public GameObject Spawn(float phaseChange, float orbit)
     {
         var _satellite = Spawn(phaseChange);
         _satellite.GetComponent<SateliteMoveArcScript>().orbit = orbit;
         return _satellite;
     }
 
-    public GameObject Spawn(float phaseChange )
+    public GameObject Spawn(float phaseChange)
     {
         var _satellite = Instantiate(Satellite);
         _satellite.GetComponent<SateliteMoveArcScript>().phaseChange = phaseChange;

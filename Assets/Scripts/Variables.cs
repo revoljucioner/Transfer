@@ -21,6 +21,7 @@ public static class Variables
     //public static float Tarc = 40;
     public static float Tarc = 4;
     public static float Trel = 5;
+    public static float Tellipse = 5;
     public static float SpeedOfRelocation = 0.005f;
     public static float SateliteStartArcSpeed = 0.8f;
     public static float SateliteStartCircleSpeed = 0.9f;

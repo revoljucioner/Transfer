@@ -1,4 +1,5 @@
-﻿using Assets.Scripts;
+﻿using Assets.Helpers;
+using Assets.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ public class SatelliteOverloadingScript : MonoBehaviour
         }
     }
 
-    private void Update() 
+    private void Update()
     {
         if (SatelliteOverloadTimerScript.IsCurrentOrbitType(OrbitType.RelToEllipse) && currentOrbit == OrbitType.Arc)
         {
@@ -54,30 +55,21 @@ public class SatelliteOverloadingScript : MonoBehaviour
         if (satellites.Count() >= newCount)
             throw new Exception("satellites.Count() >= newCount");
         var satellitesOrdered = satellites.OrderBy(i => i.GetComponent<SateliteMoveCircleScript>().phaseChange).ToArray();
-        var newPhases = GetPhases(newCount);
+        var newPhases = PhaseGenerator.GetPhases(newCount);
 
         for (var i = 0; i < satellitesOrdered.Count(); i++)
         {
             satellitesOrdered[i].GetComponent<SateliteMoveCircleScript>().phaseChange = newPhases[i];
         }
 
-        for (var i = satellitesOrdered.Count(); i< newCount; i++)
+        for (var i = satellitesOrdered.Count(); i < newCount; i++)
         {
             Camera.current.GetComponent<SatelliteGenerationScript>().Spawn(newPhases[i]);
         }
     }
 
-    private float[] GetPhases(uint count)
-    {
-        var phases = new List<float>();
-        for (var i = 0; i < count; i++)
-        {
-            phases.Add(i * 360 / count);
-        }
-        return phases.ToArray();
-    }
 
-    protected void MoveToNextOrbitTypeStart<T>() where T: MonoBehaviour, IMove
+    protected void MoveToNextOrbitTypeStart<T>() where T : MonoBehaviour, IMove
     {
         foreach (var sat in satellites)
         {
@@ -89,4 +81,31 @@ public class SatelliteOverloadingScript : MonoBehaviour
             sateliteMoveTowardScript.enabled = true;
         }
     }
+
+
+    ////
+
+    //public MoveModel[] MoveStrategyCollection = new MoveModel[]
+    //{
+    //    new MoveModel{SateliteMoveScript = typeof(SateliteMoveArcScript), Duration = Variables.Tarc, SatelitesCount = 2},
+    //    new MoveModel{SateliteMoveScript = typeof(SateliteMoveTowardScript), Duration = Variables.Trel, SatelitesCount = 3 },
+    //    new MoveModel{SateliteMoveScript = typeof(SateliteMoveCircleScript), Duration = Variables.Tellipse, SatelitesCount = 3 },
+    //};
+
+    //public void Foo()
+    //{
+    //    foreach(var moveModel in MoveStrategyCollection)
+    //    {
+
+    //    }
+    //}
 }
+
+//public class MoveModel
+//{
+//    public Type SateliteMoveScript;
+//    // seconds
+//    public float Duration;
+//    public int SatelitesCount;
+//}
+
