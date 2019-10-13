@@ -8,25 +8,20 @@ using UnityEngine;
 
 namespace Assets.Scripts.RefactoringClasses
 {
-    public class ChangeStrategyManager : MonoBehaviour/*, IObservable<IMoveStrategy>*/
+    public class ChangeStrategyManager : MonoBehaviour
     {
-        //private List<IObserver<IMoveStrategy>> _observers = new List<IObserver<IMoveStrategy>>();
         private SatelliteGenerationScript _satelliteGenerationScript = Camera.current.GetComponent<SatelliteGenerationScript>();
         private List<GameObject> _sateliteList = new List<GameObject>();
 
         public List<MoveModel> MoveStrategyCollection = new List<MoveModel>
         {
             new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = TimeSpan.FromSeconds(Variables.Tarc), SatelitesCount = 2 },
+            //new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
             new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
         };
 
         public void Start()
         {
-            GameObject[] satellites = GameObject.FindGameObjectsWithTag("satBody");
-            var g = satellites[0];
-            var g2 = g.GetComponent<MoveScript>();
-            //_observers.Add(g2);
-
             _ = ChangeStrategies();
         }
 
@@ -36,7 +31,6 @@ namespace Assets.Scripts.RefactoringClasses
             {
                 GenerateSatelites(moveModel.SatelitesCount);
                 var strategies = PrepareMoveStrategies(moveModel.SateliteMoveScriptType, moveModel.SatelitesCount);
-                //SetStrategyForSatelites((IMoveStrategy)Activator.CreateInstance(moveModel.SateliteMoveScriptType));
                 SetStrategies(strategies);
                 await Task.Delay(moveModel.Duration);
             }
@@ -51,11 +45,6 @@ namespace Assets.Scripts.RefactoringClasses
             var newSateliteCollection = func.Repeat(satCount - _sateliteList.Count());
             _sateliteList.AddRange(newSateliteCollection);
         }
-
-        //private void SetStrategyForSatelites(IMoveStrategy moveStrategy)
-        //{
-        //    _sateliteList.Select(i => i.GetComponent<MoveScript>()).ForEach(i => i.SetStrategy(moveStrategy));
-        //}
 
         private void SetStrategies(IEnumerable<IMoveStrategy> strategies)
         {
@@ -82,23 +71,5 @@ namespace Assets.Scripts.RefactoringClasses
 
             return strategies;
         }
-
-        //public IDisposable Subscribe(IObserver<IMoveStrategy> observer)
-        //{
-        //    _observers.Add(observer);
-
-        //    // TODO:
-        //    // need to return IDisposable
-        //    return null;
-        //}
-
-        //public void NotifyObservers(Type type)
-        //{
-        //    foreach (IObserver<IMoveStrategy> obs in _observers)
-        //    {
-        //        var ms = (IMoveStrategy)Activator.CreateInstance(type);
-        //        obs.OnNext(ms);
-        //    }
-        //}
     }
 }

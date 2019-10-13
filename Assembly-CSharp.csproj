@@ -72,7 +72,6 @@
     <Compile Include="Assets\Scripts\RefactoringClasses\MoveModel.cs" />
     <Compile Include="Assets\Scripts\RefactoringClasses\MoveScript.cs" />
     <Compile Include="Assets\Scripts\RefactoringClasses\MoveScriptHandler.cs" />
-    <Compile Include="Assets\Scripts\RefactoringClasses\SateliteMoveArcStrategy.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveArcScript.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveBase.cs" />
     <Compile Include="Assets\Scripts\SateliteMoveCircleScript.cs" />
@@ -82,12 +81,14 @@
     <Compile Include="Assets\Scripts\SatelliteOverloadingScript.cs" />
     <Compile Include="Assets\Scripts\SatelliteOverloadTimerScript.cs" />
     <Compile Include="Assets\Scripts\ScoreScript.cs" />
+    <Compile Include="Assets\Scripts\Strategies\SateliteMoveArcStrategy.cs" />
+    <Compile Include="Assets\Scripts\Strategies\SateliteMoveCircleStrategy.cs" />
     <Compile Include="Assets\Scripts\Variables.cs" />
     <Compile Include="Assets\Scripts\WaveGeneration.cs" />
     <Compile Include="Assets\Scripts\WaveMoveScript.cs" />
     <Compile Include="Assets\Scripts\WaveTriggersScript.cs" />
-    <Compile Include="Extensions\RepeatExtensions.cs" />
-    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Assets\Scripts\Extensions\LinqExtensions.cs" />
+    <Compile Include="Assets\Scripts\Extensions\RepeatExtensions.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Serj/source/repos/Transfer/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -665,6 +666,7 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
