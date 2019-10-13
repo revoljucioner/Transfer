@@ -8,8 +8,8 @@ public class SatelliteGenerationScript : MonoBehaviour
     {
         //Spawn(0, OrbitType.Arc, 7);
         //Spawn(3.14f, OrbitType.Arc, 5);
-        Spawn(0, 7);
-        Spawn(3.14f, 5);
+        //Spawn(0, 7);
+        //Spawn(3.14f, 5);
     }
 
     private void Update()

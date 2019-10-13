@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class Variables
 {
-    private static GameObject MainCamera => GameObject.FindGameObjectWithTag("MainCamera");
+    public static GameObject MainCamera => GameObject.FindGameObjectWithTag("MainCamera");
     private static ScoreScript ScoreScript => MainCamera.GetComponent<ScoreScript>();
 
     private const float _waveMoveSpeed = 0.02f;

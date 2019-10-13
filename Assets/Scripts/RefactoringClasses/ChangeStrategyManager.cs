@@ -10,7 +10,7 @@ namespace Assets.Scripts.RefactoringClasses
 {
     public class ChangeStrategyManager : MonoBehaviour
     {
-        private SatelliteGenerationScript _satelliteGenerationScript = Camera.current.GetComponent<SatelliteGenerationScript>();
+        private SatelliteGenerationScript _satelliteGenerationScript;
         private List<GameObject> _sateliteList = new List<GameObject>();
 
         public List<MoveModel> MoveStrategyCollection = new List<MoveModel>
@@ -22,6 +22,7 @@ namespace Assets.Scripts.RefactoringClasses
 
         public void Start()
         {
+            _satelliteGenerationScript = Variables.MainCamera.GetComponent<SatelliteGenerationScript>();
             _ = ChangeStrategies();
         }
 
@@ -46,6 +47,30 @@ namespace Assets.Scripts.RefactoringClasses
             _sateliteList.AddRange(newSateliteCollection);
         }
 
+        //private void GenerateSatelites(int satCount)
+        //{
+        //    if (satCount < _sateliteList.Count())
+        //        throw new ArgumentOutOfRangeException("Invalid count of sattelites");
+
+        //    try
+        //    {
+        //        //
+        //        var f = Enumerable.Range(0, satCount - _sateliteList.Count()).ToArray();
+        //        //var u = Camera.current;
+        //        var u = Variables.MainCamera;
+        //        var newSateliteCollection = f.Select(i => u.GetComponent<SatelliteGenerationScript>().Spawn());
+        //        var y = newSateliteCollection.ToArray();
+        //        //
+        //        //Func<GameObject> func = Camera.current.GetComponent<SatelliteGenerationScript>().Spawn;
+        //        //var newSateliteCollection = func.Repeat(satCount - _sateliteList.Count());
+        //        _sateliteList.AddRange(newSateliteCollection);
+        //    }
+        //    catch (Exception e)
+        //    {
+
+        //    }
+        //}
+
         private void SetStrategies(IEnumerable<IMoveStrategy> strategies)
         {
             for (var i = 0; i < _sateliteList.Count(); i++)
@@ -56,7 +81,7 @@ namespace Assets.Scripts.RefactoringClasses
             }
         }
 
-        private IEnumerable<IMoveStrategy> PrepareMoveStrategies(Type type,int satCount)
+        private IEnumerable<IMoveStrategy> PrepareMoveStrategies(Type type, int satCount)
         {
             // TODO:
             // need to be refactored
