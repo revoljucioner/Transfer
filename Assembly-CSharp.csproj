@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\RefactoringClasses\MoveModel.cs" />
      <Compile Include="Assets\Scripts\RefactoringClasses\MoveScript.cs" />
      <Compile Include="Assets\Scripts\RefactoringClasses\MoveScriptHandler.cs" />
+     <Compile Include="Assets\Scripts\RefactoringClasses\OrbitGenerator.cs" />
      <Compile Include="Assets\Scripts\SateliteMoveArcScript.cs" />
      <Compile Include="Assets\Scripts\SateliteMoveBase.cs" />
      <Compile Include="Assets\Scripts\SateliteMoveCircleScript.cs" />

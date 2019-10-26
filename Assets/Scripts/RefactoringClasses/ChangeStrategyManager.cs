@@ -13,11 +13,30 @@ namespace Assets.Scripts.RefactoringClasses
         private SatelliteGenerationScript _satelliteGenerationScript;
         private List<GameObject> _sateliteList = new List<GameObject>();
 
+        //
+        static Func<int, IEnumerable<float>> sameOrbits = (satCount) => Enumerable.Repeat(5.8f, satCount);
+        static Func<int, IEnumerable<float>> evenlyOrbits = (satCount) =>
+        {
+            var min = 5f;
+            var max = 6f;
+
+            var span = (max - min)/(satCount-1);
+
+            var list = new List<float>();
+
+            for (var i = 0; i< satCount; i++)
+            {
+                list.Add(min+i* span);
+            }
+
+            return list;
+        };
+        //
+
         public List<MoveModel> MoveStrategyCollection = new List<MoveModel>
         {
-            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = TimeSpan.FromSeconds(Variables.Tarc), SatelitesCount = 2 },
-            //new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
-            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
+            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = TimeSpan.FromSeconds(Variables.Tarc), SatelitesCount = 2 , GetOrbitFunc = evenlyOrbits},
+            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 , GetOrbitFunc = sameOrbits},
         };
 
         public void Awake()
@@ -31,7 +50,7 @@ namespace Assets.Scripts.RefactoringClasses
             foreach (var moveModel in MoveStrategyCollection)
             {
                 GenerateSatelites(moveModel.SatelitesCount);
-                var strategies = PrepareMoveStrategies(moveModel.SateliteMoveScriptType, moveModel.SatelitesCount);
+                var strategies = PrepareMoveStrategies(moveModel.SateliteMoveScriptType, moveModel.SatelitesCount, moveModel.GetOrbitFunc);
                 SetStrategies(strategies);
                 await Task.Delay(moveModel.Duration);
             }
@@ -81,17 +100,19 @@ namespace Assets.Scripts.RefactoringClasses
             }
         }
 
-        private IEnumerable<IMoveStrategy> PrepareMoveStrategies(Type type, int satCount)
+        private IEnumerable<IMoveStrategy> PrepareMoveStrategies(Type type, int satCount, Func<int, IEnumerable<float>> orbitFunc)
         {
             // TODO:
             // need to be refactored
-            var strategies = Enumerable.Range(0, satCount).Select(i => (IMoveStrategy)Activator.CreateInstance(type));
+            var strategies = Enumerable.Range(0, satCount).Select(i => (IMoveStrategy)Activator.CreateInstance(type)).ToArray();
 
             var newPhases = PhaseGenerator.GetPhases((uint)_sateliteList.Count());
+            var newOrbits = orbitFunc(_sateliteList.Count());
 
             for (var i = 0; i < strategies.Count(); i++)
             {
-                strategies.ElementAt(i).PhaseChange = newPhases.ElementAt(i);
+                strategies[i].PhaseChange = newPhases.ElementAt(i);
+                strategies[i].Orbit = newOrbits.ElementAt(i);
             }
 
             return strategies;

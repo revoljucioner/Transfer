@@ -13,12 +13,13 @@ namespace Assets.Scripts.RefactoringClasses
         public float StartSpeed = Variables.SateliteStartArcSpeed;
         public float maxWeight = 1.2f;
         //public float orbit;
-        public float orbit = 6f;
+        //public float orbit = 6f;
         //public float phaseChange;
         //public bool mobile = true;
         public float Speed => StartSpeed + 0.5f * (float)Atan(Variables.Time);
 
         public float PhaseChange { get; set; }
+        public float Orbit { get; set; }
 
         public void MoveObject(GameObject gameObject)
         {
@@ -28,7 +29,7 @@ namespace Assets.Scripts.RefactoringClasses
         public Vector2 CalculatePositionAsFigure()
         {
             var x = (float)(maxWeight * Sin(Speed * Variables.Time + PhaseChange));
-            var y = (float)Sqrt(Pow(orbit, 2) - Pow(x, 2));
+            var y = (float)Sqrt(Pow(Orbit, 2) - Pow(x, 2));
             //сейчас орбита идет по кругу в центре которого находится земная станция. закоменчено движение по орбите в центре которой центр Земли
             //var y = (float)Sqrt(Pow(orbit - EarthCenterY, 2) - Pow(x, 2)) + EarthCenterY;
             var position = new Vector2(x, y);
