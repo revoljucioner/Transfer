@@ -20,7 +20,7 @@ namespace Assets.Scripts.RefactoringClasses
             new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 },
         };
 
-        public void Start()
+        public void Awake()
         {
             _satelliteGenerationScript = Variables.MainCamera.GetComponent<SatelliteGenerationScript>();
             _ = ChangeStrategies();
