@@ -36,7 +36,8 @@ namespace Assets.Scripts.RefactoringClasses
         public List<MoveModel> MoveStrategyCollection = new List<MoveModel>
         {
             new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveArcStrategy), Duration = TimeSpan.FromSeconds(Variables.Tarc), SatelitesCount = 2 , GetOrbitFunc = evenlyOrbits},
-            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardScript), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 , GetOrbitFunc = sameOrbits},
+            //new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveTowardStrategy), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 , GetOrbitFunc = sameOrbits},
+            new MoveModel { SateliteMoveScriptType = typeof(SateliteMoveCircleStrategy), Duration = TimeSpan.FromSeconds(Variables.Trel), SatelitesCount = 2 , GetOrbitFunc = sameOrbits},
         };
 
         public void Awake()

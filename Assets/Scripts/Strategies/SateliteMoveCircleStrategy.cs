@@ -10,12 +10,38 @@ namespace Assets.Scripts.RefactoringClasses
 {
     public class SateliteMoveCircleStrategy : IMoveStrategy
     {
-        public float PhaseChange { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public float Orbit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public float Speed => 0.2f;
+        //public override float Speed => StartSpeed + 0.5f * (float)Atan(Variables.Time - Variables.Tarc);
+        private float RadiusOfRotate = 1.8f;
+        public float PhaseChange { get; set; }
+        public float Orbit { get; set; }
 
         public void MoveObject(GameObject gameObject)
         {
-            throw new NotImplementedException();
+            gameObject.transform.position = CalculatePositionAsFigure();
+            ChangePhase();
+        }
+
+        public Vector2 CalculatePositionAsFigure()
+        {
+            var x = SetPositionX();
+            var y = SetPositionY();
+            return new Vector2(x, y);
+        }
+
+        private float SetPositionX()
+        {
+            return RadiusOfRotate * Mathf.Cos((90 - PhaseChange) * Mathf.Deg2Rad);
+        }
+
+        private float SetPositionY()
+        {
+            return 0.7f * RadiusOfRotate * Mathf.Sin((90 - PhaseChange) * Mathf.Deg2Rad) + Orbit;
+        }
+
+        private void ChangePhase()
+        {
+            PhaseChange = PhaseChange - Speed;
         }
     }
 }
